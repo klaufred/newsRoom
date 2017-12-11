@@ -2,9 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Read the story</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <style>
 
             li {
@@ -24,14 +21,14 @@
         
         <nav>
            <ul th:each="category : ${categories}">
-                <li><a th:text="${category.name}" th:href="@{categories/{id} (id=${category.id})}">name</a></li>
+                <li><a th:text="${category.name}" th:href="@{/categories/{id} (id=${category.id})}">name</a></li>
            </ul>
          </nav> 
         
         <h1>NewsCabinet</h1>
 
         <h2><strong><span th:text="${story.title}"></span></strong> </h2>
-        <img th:src="@{/picture/{id} (id=${story.id})}"/>
+        <img th:src="@{/picture/{id} (id=${story.id})} " width="200" height="200"/>
         <h3><span th:text="${date}"></span></h3>
         
         <i><span th:text="${story.intro}"></span></i>

@@ -2,9 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Add a new news story</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <style>
 
             li {
@@ -24,7 +21,7 @@
         
         <nav>
            <ul th:each="category : ${categories}">
-                <li><a th:text="${category.name}" th:href="@{categories/{id} (id=${category.id})}">name</a></li>
+                <li><a th:text="${category.name}" th:href="@{/categories/{id} (id=${category.id})}">name</a></li>
            </ul>
          </nav> 
         
@@ -38,8 +35,10 @@
             <p>Main text: <textarea name="content" rows="20" cols="100"></textarea></p>
             <p>Writer: <input type="text" name="writer"></input></p>
             <p>Category:</p> 
-            <select name="categories" multiple="" th:each="category : ${categories}" >
-                    <option value="category.name" th:text="${category.name}" ></option>
+            <select name="categories" id="categories" multiple="multiple" >
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}" 
+                            th:text="${category.name}" ></option>
             </select> 
             <p>Picture: <input type="file" name="picture" id="picture"/></p>
             <input type="submit" value="Submit!"/>

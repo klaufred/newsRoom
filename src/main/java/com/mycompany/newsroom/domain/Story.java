@@ -55,5 +55,4 @@ public class Story extends AbstractPersistable<Long>{
     public void addCategory(Category c) {
         this.categories.add(c);
     }
-  
 }

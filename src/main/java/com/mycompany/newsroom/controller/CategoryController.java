@@ -39,6 +39,7 @@ public class CategoryController {
     
     @GetMapping("/categories/{id}")
     public String findCategory(Model model, @PathVariable Long id) {
+        model.addAttribute("categories", this.categoryRepo.findAll());
         model.addAttribute("category", this.categoryRepo.getOne(id));
         model.addAttribute("stories", this.newsRepo.findAll(new PageRequest(0, 10, Sort.Direction.DESC, "categories")));
         return "category";
@@ -50,6 +51,7 @@ public class CategoryController {
         Category cat = new Category();
         cat.setDescription(description);
         cat.setName(name);
+        this.categoryRepo.save(cat);
         return "redirect:/frontpage";
     }
 }

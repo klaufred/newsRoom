@@ -21,7 +21,7 @@
         
         <nav>
            <ul th:each="category : ${categories}">
-                <li><a th:text="${category.name}" th:href="@{categories/{id} (id=${category.id})}">name</a></li>
+                <li><a th:text="${category.name}" th:href="@{/categories/{id} (id=${category.id})}">name</a></li>
            </ul>
          </nav> 
         
@@ -35,8 +35,8 @@
         <ul>
             <li th:each="story : ${stories}">
                 <img th:src="@{/picture/{id} (id=${story.id})}" width="104" height="104"/>
-                <a th:href="@{story/{id} (id=${story.id})}" th:text="${story.title}">title</a> 
-                <span th:text="${story.intro}">type</span>
+                <a th:href="@{/story/{id} (id=${story.id})}" th:text="${story.title}">title</a> 
+                <span<p th:text="${story.intro}">type</p></span>
             </li>
         </ul>
         </div>

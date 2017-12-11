@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class NewsController {
     
     @GetMapping("story/{id}")
     public String findOne(Model model, @PathVariable Long id) {
+        model.addAttribute("categories", this.catRepo.findAll());
         Story story = this.newsRepo.getOne(id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedDateTime = story.getPublicationDate().format(formatter);
@@ -72,7 +74,7 @@ public class NewsController {
     
     //@Secured("USER")
     @PostMapping("/newstory")
-    public String newStory(@RequestParam String writer, @RequestParam String categories,  @RequestParam String title, @RequestParam String intro, @RequestParam String content, @RequestParam("picture") MultipartFile picture){
+    public String newStory(@RequestParam String writer, @RequestParam List<Long> categories,  @RequestParam String title, @RequestParam String intro, @RequestParam String content, @RequestParam("picture") MultipartFile picture){
         Story story = new Story();
         story.setPublicationDate(LocalDateTime.now());
         story.setTitle(title);
@@ -80,14 +82,22 @@ public class NewsController {
         story.setIntro(intro);
         story.setWriter(writer);
         
-//       ArrayList<Story> list = new ArrayList<>();    
-//       for (Long id : categories) {
-//           Category cat = this.catRepo.getOne(id);
-//           cat.addStory(story);
-//           this.catRepo.save(cat);
-//           
-//           story.addCategory(cat);
-//       }
+        if (!categories.isEmpty()) {
+            for (Long id : categories) {
+                System.out.println(id);
+                Category cat = this.catRepo.getOne(id);
+                System.out.println(cat.getName());
+                cat.addStory(story);
+                List<Category> list = story.getCategories();
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                this.catRepo.saveAndFlush(cat);
+                list.add(cat);
+                
+                story.setCategories(list);
+            }
+        }
         
         
         
@@ -98,7 +108,7 @@ public class NewsController {
                 Logger.getLogger(NewsController.class.getName()).log(Level.WARNING, null, ex);
             }
         }
-        this.newsRepo.save(story);
+        this.newsRepo.saveAndFlush(story);
         return "redirect:/frontpage";
     }
 
