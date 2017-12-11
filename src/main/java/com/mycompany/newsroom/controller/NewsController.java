@@ -82,22 +82,22 @@ public class NewsController {
         story.setIntro(intro);
         story.setWriter(writer);
         
-        if (!categories.isEmpty()) {
-            for (Long id : categories) {
-                System.out.println(id);
-                Category cat = this.catRepo.getOne(id);
-                System.out.println(cat.getName());
-                cat.addStory(story);
-                List<Category> list = story.getCategories();
-                if (list == null) {
-                    list = new ArrayList<>();
-                }
-                this.catRepo.saveAndFlush(cat);
-                list.add(cat);
-                
-                story.setCategories(list);
-            }
-        }
+//        if (!categories.isEmpty()) {
+//            for (Long id : categories) {
+//                System.out.println(id);
+//                Category cat = this.catRepo.getOne(id);
+//                System.out.println(cat.getName());
+//                cat.addStory(story);
+//                List<Category> list = story.getCategories();
+//                if (list == null) {
+//                    list = new ArrayList<>();
+//                }
+//                this.catRepo.saveAndFlush(cat);
+//                list.add(cat);
+//                
+//                story.setCategories(list);
+//            }
+//        }
         
         
         
