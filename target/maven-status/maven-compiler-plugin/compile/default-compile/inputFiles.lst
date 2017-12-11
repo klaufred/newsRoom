@@ -1,0 +1,13 @@
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/service/CustomUserDetailsService.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/repository/NewsRepository.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/NewsRoomRun.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/configuration/SecurityConfiguration.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/repository/AccountRepository.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/repository/CategoryRepository.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/controller/CategoryController.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/controller/RegistrationController.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/controller/NewsController.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/domain/Account.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/controller/DefaultController.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/domain/Story.java
+/home/blacksheep/NetBeansProjects/NewsRoom/src/main/java/com/mycompany/newsroom/domain/Category.java

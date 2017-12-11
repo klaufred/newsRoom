@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>List of categories</title>
+    <style>
+
+            li {
+                display: inline;
+                list-style-type: none;
+            }
+            
+            nav ul{
+                display: inline;
+                list-style-type: none;
+            }
+
+            </style>
+    </head>
+
+    <body>
+        
+        <nav>
+           <ul th:each="category : ${categories}">
+                <li><a th:text="${category.name}" th:href="@{categories/{id} (id=${category.id})}">name</a></li>
+           </ul>
+         </nav> 
+        
+        <h1>NewsCabinet</h1>
+
+        <h2><strong><span th:text="${category.name}"></span></strong> </h2>
+        
+       <p><span th:text="${category.description}"></span></p>
+       
+       <div th:if="${stories != null}">
+        <ul>
+            <li th:each="story : ${stories}">
+                <img th:src="@{/picture/{id} (id=${story.id})}" width="104" height="104"/>
+                <a th:href="@{story/{id} (id=${story.id})}" th:text="${story.title}">title</a> 
+                <span th:text="${story.intro}">type</span>
+            </li>
+        </ul>
+        </div>
+    </body>
+</html>

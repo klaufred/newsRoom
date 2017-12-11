@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>NewsCabinet</title>
+        <style>
+
+            li {
+                display: inline;
+                list-style-type: none;
+            }
+            
+            nav ul{
+                display: inline;
+                list-style-type: none;
+            }
+
+            </style>
+    </head>
+
+    <body>
+        
+        <nav>
+           <ul th:each="category : ${categories}">
+                <li><a th:text="${category.name}" th:href="@{categories/{id} (id=${category.id})}">name</a></li>
+           </ul>
+         </nav> 
+        
+        <h1>NewsCabinet</h1>
+
+        <h2>Front page</h2>
+        
+        <div th:if="${stories != null}">
+        <ul>
+            <li th:each="story : ${stories}">
+                <img th:src="@{/picture/{id} (id=${story.id})}" width="104" height="104"/>
+                <a th:href="@{story/{id} (id=${story.id})}" th:text="${story.title}">title</a> 
+                <span th:text="${story.intro}">type</span>
+            </li>
+        </ul>
+        </div>
+        <a th:href="@{/newstory}" >Know something important? Make news!</a>
+    </body>
+</html>
