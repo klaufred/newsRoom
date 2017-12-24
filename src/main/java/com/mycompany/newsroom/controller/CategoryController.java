@@ -3,6 +3,8 @@ package com.mycompany.newsroom.controller;
 import com.mycompany.newsroom.domain.Category;
 import com.mycompany.newsroom.repository.CategoryRepository;
 import com.mycompany.newsroom.repository.NewsRepository;
+import com.mycompany.newsroom.domain.Story;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,32 +21,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 @SpringBootApplication
 @Controller
 public class CategoryController {
-    
+
     @Autowired
     private CategoryRepository categoryRepo;
-    
+
     @Autowired
     private NewsRepository newsRepo;
-    
+
     @GetMapping("/categories/nav")
     public String categoriesForNavigation(Model model) {
         model.addAttribute("categories", this.categoryRepo.findAll());
         return "categories";
     }
-    
+
     @GetMapping("/categories")
     public List<Category> categories() {
         return this.categoryRepo.findAll();
     }
-    
+
     @GetMapping("/categories/{id}")
     public String findCategory(Model model, @PathVariable Long id) {
         model.addAttribute("categories", this.categoryRepo.findAll());
         model.addAttribute("category", this.categoryRepo.getOne(id));
-        model.addAttribute("stories", this.newsRepo.findAll(new PageRequest(0, 10, Sort.Direction.DESC, "categories")));
+
+        List<Story> list = new ArrayList<>();
+        for (Story story : this.newsRepo.findAll()) {
+          for (Category cat : story.getCategories()) {
+            if (cat.getId() == id) {
+              list.add(story);
+            }
+          }
+        }
+        model.addAttribute("stories", list);
+
         return "category";
     }
-    
+
     //@Secured("ADMIN")
     @PostMapping("/categories")
     public String addCategories(@RequestParam String name, @RequestParam String description) {

@@ -14,17 +14,17 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Data
 public class Category extends AbstractPersistable<Long>{
-    private Long id;
-    
+      private Long id;
+
     //@NotEmpty
     private String name;
-    
+
     //@NotEmpty
     private String description;
-    
-    @ManyToMany  
+
+    @ManyToMany
     private List<Story> stories;
-    
+
     public void addStory(Story s) {
         this.stories.add(s);
     }

@@ -30,25 +30,25 @@ import org.springframework.web.multipart.MultipartFile;
 @SpringBootApplication
 @Controller
 public class NewsController {
-    
+
     @Autowired
     private NewsRepository newsRepo;
-    
+
     @Autowired
     private CategoryRepository catRepo;
-    
+
     @GetMapping("/")
     public String index() {
         return "redirect:/frontpage";
     }
-    
+
     @GetMapping("/frontpage")
     public String frontPage(Model model) {
         model.addAttribute("categories", this.catRepo.findAll());
         model.addAttribute("stories", this.newsRepo.findAll(new PageRequest(0, 5, Sort.Direction.DESC, "publicationDate")));
         return "frontpage";
     }
-    
+
     @GetMapping("story/{id}")
     public String findOne(Model model, @PathVariable Long id) {
         model.addAttribute("categories", this.catRepo.findAll());
@@ -59,19 +59,19 @@ public class NewsController {
         model.addAttribute("date", formattedDateTime);
         return "story";
     }
-    
+
     @GetMapping(path = "/picture/{id}", produces = "image/jpeg")
     @ResponseBody
     public byte[] picContent(@PathVariable Long id) {
         return this.newsRepo.getOne(id).getPicture();
     }
-    
+
     @GetMapping("/newstory")
     public String newstory(Model model) {
         model.addAttribute("categories", this.catRepo.findAll());
         return "newstory";
     }
-    
+
     //@Secured("USER")
     @PostMapping("/newstory")
     public String newStory(@RequestParam String writer, @RequestParam List<Long> categories,  @RequestParam String title, @RequestParam String intro, @RequestParam String content, @RequestParam("picture") MultipartFile picture){
@@ -81,26 +81,25 @@ public class NewsController {
         story.setContent(content);
         story.setIntro(intro);
         story.setWriter(writer);
-        
-//        if (!categories.isEmpty()) {
-//            for (Long id : categories) {
-//                System.out.println(id);
-//                Category cat = this.catRepo.getOne(id);
-//                System.out.println(cat.getName());
-//                cat.addStory(story);
-//                List<Category> list = story.getCategories();
-//                if (list == null) {
-//                    list = new ArrayList<>();
-//                }
-//                this.catRepo.saveAndFlush(cat);
-//                list.add(cat);
-//                
-//                story.setCategories(list);
-//            }
-//        }
-        
-        
-        
+
+        List<Category> list = new ArrayList<>();
+        if (!categories.isEmpty()) {
+          this.newsRepo.save(story);
+            for (Long id : categories) {
+                System.out.println(id);
+                Category cat = this.catRepo.getOne(id);
+                System.out.println(cat.getName());
+                List<Story> stories = cat.getStories();
+                stories.add(story);
+                cat.setStories(stories);
+                this.catRepo.save(cat);
+
+                list.add(cat);
+            }
+        }
+        story.setCategories(list);
+
+
         if (picture.getContentType().equals("image/png") || picture.getContentType().equals("image/jpeg") ) {
             try {
                 story.setPicture(picture.getBytes());
@@ -108,7 +107,7 @@ public class NewsController {
                 Logger.getLogger(NewsController.class.getName()).log(Level.WARNING, null, ex);
             }
         }
-        this.newsRepo.saveAndFlush(story);
+        this.newsRepo.save(story);
         return "redirect:/frontpage";
     }
 

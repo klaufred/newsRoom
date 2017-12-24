@@ -21,37 +21,36 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Data
 public class Story extends AbstractPersistable<Long>{
-
     private Long id;
-    
+
     //@NotEmpty
     private LocalDateTime publicationDate;
-    
+
     //@NotEmpty
     //@Size(min = 5, max = 50)
     private String title;
-    
+
     //@NotEmpty
     //@Size(min = 10, max = 150)
     private String intro;
-    
+
     //@NotEmpty
-    @Lob 
+    @Lob
     @Column(name="content", length=512)
     private String content;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] picture;
-    
+
     private Integer clicks;
-    
-   private String writer;
-    
+
+    private String writer;
+
     //@NotEmpty
-    @ManyToMany(mappedBy="stories", fetch=FetchType.EAGER)  
+    @ManyToMany(mappedBy="stories", fetch=FetchType.EAGER)
     private List<Category> categories;
-    
+
     public void addCategory(Category c) {
         this.categories.add(c);
     }

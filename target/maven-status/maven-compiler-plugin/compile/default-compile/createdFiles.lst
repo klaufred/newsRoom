@@ -5,6 +5,6 @@ com/mycompany/newsroom/domain/Category.class
 com/mycompany/newsroom/controller/DefaultController.class
 com/mycompany/newsroom/repository/CategoryRepository.class
 com/mycompany/newsroom/controller/CategoryController.class
-com/mycompany/newsroom/controller/NewsController.class
 com/mycompany/newsroom/repository/AccountRepository.class
+com/mycompany/newsroom/controller/NewsController.class
 com/mycompany/newsroom/domain/Story.class
