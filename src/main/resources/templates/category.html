@@ -44,8 +44,8 @@
                 <div class="well">
                   <img class="img-thumbnail" alt="Cinque Terre" width="304" height="236" th:src="@{/picture/{id} (id=${story.id})}"/>
                   <p></p>
-                  <a th:href="@{/story/{id} (id=${story.id})}" th:text="${story.title}">title</a>
-                  <span<p th:text="${story.intro}">type</p></span>
+                  <h4 th:href="@{/story/{id} (id=${story.id})}" th:text="${story.title}">title</h4>
+                  <i><span th:text="${story.intro}"></span></i>
                 </div>
               </li>
             </ul>
